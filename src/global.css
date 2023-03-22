@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+input {
+  @apply outline-none border-2 border-transparent focus:border-teal-500;
+}
