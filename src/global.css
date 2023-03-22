@@ -1,7 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 input {
-  @apply outline-none border-2 border-transparent focus:border-teal-500;
+  @apply outline-none border border-zinc-200 focus:border-teal-500 rounded-sm h-14;
 }
