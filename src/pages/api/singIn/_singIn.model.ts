@@ -11,4 +11,8 @@ export class SingInModel {
   async findUserByEmailHash(emailHash: string) {
     return await this.repo.findByEmailHash(emailHash);
   }
+
+  async findUserById(id: number) {
+    return await this.repo.findById(id);
+  }
 }

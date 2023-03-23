@@ -26,4 +26,10 @@ export class UserRepository {
       where: { email },
     });
   }
+
+  async findById(id: number) {
+    return await this.db.findUnique({
+      where: { id },
+    });
+  }
 }

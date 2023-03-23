@@ -3,13 +3,16 @@ import { SingInService } from "./_singIn.service";
 import { StatusCodes as code } from "http-status-codes";
 
 export class SingInController {
-  constructor(private service: SingInService, private email: string) {}
+  constructor(private service: SingInService, private email?: string) {}
 
-  static init(email: string) {
+  static init(email?: string) {
     const service = SingInService.init();
-    const controller = new SingInController(service, email);
-    controller.validate();
-    return controller;
+    return new SingInController(service, email);
+  }
+
+  async validateToken(token: string) {
+    if (!token) throw new CustomError("Token não informado", code.UNAUTHORIZED);
+    return await this.service.validateToken(token);
   }
 
   validate() {
@@ -29,7 +32,8 @@ export class SingInController {
   }
 
   async singIn() {
-    const token = await this.service.singIn(this.email);
+    this.validate();
+    const token = await this.service.singIn(this.email!);
 
     return {
       token,

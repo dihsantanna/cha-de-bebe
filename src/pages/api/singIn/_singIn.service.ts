@@ -4,6 +4,7 @@ import { ITokenPayload } from "@/types/ITokenPayload";
 import jwt from "jsonwebtoken";
 import { CustomError } from "@/utils/CustomError";
 import { StatusCodes } from "http-status-codes";
+import { IUserRegistered } from "@/types/IUser";
 
 export class SingInService {
   constructor(private model: SingInModel) {}
@@ -36,5 +37,36 @@ export class SingInService {
     const { id, name } = user;
 
     return this.createJwtToken({ id, name });
+  }
+
+  async validateToken(token: string) {
+    try {
+      const payload = jwt.verify(
+        token,
+        process.env.JWT_SECRET as string
+      ) as ITokenPayload;
+
+      const user = await this.model.findUserById(payload.id);
+
+      if (!user)
+        throw new CustomError(
+          "Usuário não encontrado",
+          StatusCodes.UNAUTHORIZED
+        );
+
+      Reflect.deleteProperty(user, "email");
+
+      return user as unknown as IUserRegistered;
+    } catch (error) {
+      if (
+        error instanceof jwt.JsonWebTokenError ||
+        error instanceof jwt.TokenExpiredError ||
+        error instanceof jwt.NotBeforeError
+      ) {
+        throw new CustomError("Token inválido", StatusCodes.UNAUTHORIZED);
+      }
+
+      throw error;
+    }
   }
 }
