@@ -11,10 +11,11 @@ datasource db {
 }
 
 model Users {
-  id         Int          @id @default(autoincrement())
-  email      String       @unique
-  name       String
-  UsersItems UsersItems[]
+  id                Int          @id @default(autoincrement())
+  email             String       @unique
+  name              String
+  confirmedPresence Boolean      @default(false)
+  UsersItems        UsersItems[]
 }
 
 model UsersItems {
