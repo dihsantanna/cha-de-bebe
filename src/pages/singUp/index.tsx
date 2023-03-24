@@ -1,11 +1,14 @@
 import React, { ChangeEvent, useState } from "react";
 import { toast } from "react-toastify";
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
 import { useLoading } from "@/context/LoadingContext";
 import { useRouter } from "next/router";
+import { setTokenInCookies } from "@/utils/handleCookies";
+import { useAuthContext } from "@/context/AuthContext";
 
 export default function SingUpForm() {
   const { setLoading } = useLoading();
+  const { singUp } = useAuthContext();
   const router = useRouter();
   const [user, setUser] = useState({
     email: "",
@@ -21,16 +24,8 @@ export default function SingUpForm() {
     event.preventDefault();
     setLoading(true, "Cadastrando...");
     try {
-      const response = await axios.post<{ message: string; token: string }>(
-        "/api/singUp/",
-        user
-      );
-
-      const { data } = response;
-
-      localStorage.setItem("token", data.token);
-
-      toast.success(data.message);
+      await singUp(user);
+      toast.success("Usuário cadastrado com sucesso!");
       router.push("/list");
     } catch (error) {
       toast.error(((error as AxiosError).response?.data as Error).message);

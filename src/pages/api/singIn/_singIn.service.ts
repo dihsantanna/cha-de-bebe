@@ -36,13 +36,17 @@ export class SingInService {
 
     const { id, name } = user;
 
-    return this.createJwtToken({ id, name });
+    const token = this.createJwtToken({ id, name });
+
+    Reflect.deleteProperty(user, "email");
+
+    return { user, token };
   }
 
-  async validateToken(token: string) {
+  async validateToken(oldToken: string) {
     try {
       const payload = jwt.verify(
-        token,
+        oldToken,
         process.env.JWT_SECRET as string
       ) as ITokenPayload;
 
@@ -54,9 +58,13 @@ export class SingInService {
           StatusCodes.UNAUTHORIZED
         );
 
+      const { id, name } = user;
+
+      const token = this.createJwtToken({ id, name });
+
       Reflect.deleteProperty(user, "email");
 
-      return user as unknown as IUserRegistered;
+      return { user, token };
     } catch (error) {
       if (
         error instanceof jwt.JsonWebTokenError ||

@@ -42,9 +42,15 @@ export class SingUpService {
 
     await this.userExists(emailHash);
 
-    const user = { name, email: emailHash };
-    const { id } = await this.model.create(user);
+    const newUser = { name, email: emailHash };
+    const user = await this.model.create(newUser);
 
-    return this.createJwtToken({ id, name });
+    const { id } = user;
+
+    const token = this.createJwtToken({ id, name });
+
+    Reflect.deleteProperty(user, "email");
+
+    return { user, token };
   }
 }

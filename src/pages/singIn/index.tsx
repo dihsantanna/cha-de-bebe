@@ -1,12 +1,12 @@
 import { useLoading } from "@/context/LoadingContext";
-import axios, { AxiosError } from "axios";
-import { useRouter } from "next/router";
+import { AxiosError } from "axios";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
+import { useAuthContext } from "@/context/AuthContext";
 
 export default function SingInForm() {
   const { setLoading } = useLoading();
-  const router = useRouter();
+  const { singIn } = useAuthContext();
   const [email, setEmail] = useState("");
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -18,12 +18,7 @@ export default function SingInForm() {
     event.preventDefault();
     setLoading(true, "Entrando...");
     try {
-      const response = await axios.post("/api/singIn/", { email });
-      const { data } = response;
-      localStorage.setItem("token", data.token);
-
-      toast.success(data.message);
-      router.push("/list");
+      await singIn(email);
     } catch (error) {
       toast.error(((error as AxiosError).response?.data as Error).message);
     } finally {

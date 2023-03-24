@@ -10,9 +10,15 @@ export class SingInController {
     return new SingInController(service, email);
   }
 
-  async validateToken(token: string) {
-    if (!token) throw new CustomError("Token não informado", code.UNAUTHORIZED);
-    return await this.service.validateToken(token);
+  async validateToken(oldToken: string) {
+    if (!oldToken)
+      throw new CustomError("Token não informado", code.UNAUTHORIZED);
+    const { user, token } = await this.service.validateToken(oldToken);
+
+    return {
+      user,
+      token,
+    };
   }
 
   validate() {
@@ -33,11 +39,11 @@ export class SingInController {
 
   async singIn() {
     this.validate();
-    const token = await this.service.singIn(this.email!);
+    const { user, token } = await this.service.singIn(this.email!);
 
     return {
+      user,
       token,
-      message: "Login realizado com sucesso",
     };
   }
 }

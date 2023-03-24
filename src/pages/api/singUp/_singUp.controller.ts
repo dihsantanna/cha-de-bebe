@@ -37,11 +37,11 @@ export class SingUpController {
   }
 
   async singUp() {
-    const token = await this.service.singUp(this.user);
+    const { user, token } = await this.service.singUp(this.user);
 
     return {
+      user,
       token,
-      message: "Usuário criado com sucesso",
     };
   }
 }

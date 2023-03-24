@@ -6,7 +6,9 @@ import { SingInController } from "../_singIn.controller";
 import { StatusCodes } from "http-status-codes";
 
 interface Response {
-  message: string;
+  message?: string;
+  user?: IUserRegistered;
+  token?: string;
 }
 
 export default async function handler(

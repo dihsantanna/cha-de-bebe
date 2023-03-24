@@ -1,13 +1,14 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { IUser } from "@/types/IUser";
+import { IUser, IUserRegistered } from "@/types/IUser";
 import { CustomError } from "@/utils/CustomError";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { SingUpController } from "./_singUp.controller";
 import { StatusCodes } from "http-status-codes";
 
 interface Response {
-  message: string;
+  message?: string;
   token?: string;
+  user?: IUserRegistered;
 }
 
 export default async function handler(

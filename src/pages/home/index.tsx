@@ -1,8 +1,8 @@
-import { GetServerSideProps } from "next";
+import { GetStaticProps } from "next";
 import { Items } from "@prisma/client";
 import axios from "axios";
 import React from "react";
-import { ListMissingItems } from "../components/ListMissingItems";
+import { ListMissingItems } from "../../components/ListMissingItems";
 
 interface HomeProps {
   items: Items[];
@@ -19,20 +19,19 @@ export default function Home({ items }: HomeProps) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps<HomeProps> = async (
-  context
-) => {
+export const getStaticProps: GetStaticProps<HomeProps> = async (context) => {
   const isProduction = process.env.NODE_ENV === "production";
-  const response = await axios.get(
-    `${isProduction ? "https://" : "http://"}${
-      context.req.headers.host
-    }/api/list/items`
-  );
+  const URL = isProduction
+    ? (process.env.NEXT_PUBLIC_VERCEL_URL as string).replace(/\/$/, "") +
+      "/api/list/items"
+    : "http://localhost:3000/api/list/items";
+  const response = await axios.get(URL);
   const items = response.data;
 
   return {
     props: {
       items,
     },
+    revalidate: (60 * 60) / 6, // 10 minutes
   };
 };

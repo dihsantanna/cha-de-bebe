@@ -1,17 +1,18 @@
 import Head from "next/head";
 import Image from "next/image";
-import { useRouter } from "next/router";
 import { Loading } from "./Loading";
 import { ToastContainer } from "react-toastify";
 import { Header } from "./Header";
 
 import "react-toastify/dist/ReactToastify.css";
+import { useAuthContext } from "@/context/AuthContext";
 
 interface LayoutProps {
   children: React.ReactNode;
 }
 
 export function Layout({ children }: LayoutProps) {
+  const { isAuthenticated } = useAuthContext();
   return (
     <>
       <Head>
