@@ -1,21 +1,17 @@
-import { ToastContainer } from "react-toastify";
-import { Header } from "./Header";
-
-import "react-toastify/dist/ReactToastify.css";
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { Loading } from "./Loading";
+import { ToastContainer } from "react-toastify";
+import { Header } from "./Header";
+
+import "react-toastify/dist/ReactToastify.css";
 
 interface LayoutProps {
   children: React.ReactNode;
 }
 
 export function Layout({ children }: LayoutProps) {
-  const router = useRouter();
-
-  const isHome = router.pathname === "/";
-
   return (
     <>
       <Head>
@@ -27,15 +23,13 @@ export function Layout({ children }: LayoutProps) {
       <Header />
       <main
         id="main-content"
-        className="flex flex-col w-full min-h-[calc(100vh-112px)] relative"
+        className="flex flex-col w-full min-h-[calc(100vh-112px)] relative scrollbar-thin scrollbar-track-zinc-50 scrollbar-thumb-zinc-900"
       >
         {children}
         <div className="absolute z-0 w-full h-full flex items-center justify-center top-0 left-0">
           <Image
+            priority
             alt="bebe elefante"
-            className={`${
-              !isHome && "opacity-60 "
-            } transition-opacity duration-500 z-0`}
             src="/baby-elephant.png"
             width={500}
             height={500}

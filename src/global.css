@@ -6,3 +6,13 @@
 input {
   @apply outline-none border border-zinc-200 focus:border-teal-500 rounded-sm h-14;
 }
+
+.text-stroke-zinc {
+        -webkit-text-stroke: 0.5px #18181b;
+        text-stroke: 0.5px #18181b;
+}
+
+.text-stroke-white {
+  -webkit-text-stroke: 0.5px #fff;
+  text-stroke: 0.5px #fff;
+}

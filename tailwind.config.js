@@ -8,10 +8,14 @@ module.exports = {
       },
       colors: {
         opaque: {
+          400: "rgba(255, 255, 255, 0.4)",
           500: "rgba(255, 255, 255, 0.5)",
           600: "rgba(255, 255, 255, 0.6)",
           700: "rgba(255, 255, 255, 0.7)",
           800: "rgba(255, 255, 255, 0.8)",
+        },
+        "silver-opaque": {
+          500: "rgb(212, 212, 216, 0.5)",
         },
       },
       keyframes: {
@@ -30,5 +34,5 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [require("tailwind-scrollbar")],
 };
