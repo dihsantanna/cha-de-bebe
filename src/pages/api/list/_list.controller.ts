@@ -34,4 +34,16 @@ export class ListController {
       message: "Item alterado com sucesso!",
     };
   }
+
+  async listUserItems(token: string) {
+    const payload = await this.validateToken(token);
+    if (!payload) {
+      throw new CustomError("Token inválido!", code.UNAUTHORIZED);
+    }
+    const { id } = payload;
+
+    const list = await this.service.listUserItems(id);
+
+    return list;
+  }
 }

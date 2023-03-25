@@ -31,4 +31,9 @@ export class ListModel {
   async toggleUserItem(userId: number, itemId: number, exists: boolean) {
     await this.listRepo.toggleUserItem(userId, itemId, exists);
   }
+
+  async listUserItems(userId: number) {
+    const list = await this.listRepo.listUserItems(userId);
+    return list;
+  }
 }

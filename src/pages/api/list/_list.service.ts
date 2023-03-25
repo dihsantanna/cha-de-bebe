@@ -53,4 +53,9 @@ export class ListService {
       !!itemIsCheckedForOtherUser
     );
   }
+
+  async listUserItems(userId: number) {
+    const list = await this.model.listUserItems(userId);
+    return list;
+  }
 }

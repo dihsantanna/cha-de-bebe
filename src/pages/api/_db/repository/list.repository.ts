@@ -50,4 +50,18 @@ export class ListRepository {
       },
     });
   }
+
+  async listUserItems(userId: number) {
+    const userItems = await this.usersItemsTable.findMany({
+      where: { userId },
+      include: {
+        items: true,
+      },
+    });
+
+    if (userItems.length) {
+      return userItems.map((item) => item.items);
+    }
+    return userItems;
+  }
 }
