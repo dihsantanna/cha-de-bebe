@@ -3,20 +3,51 @@ import { prisma } from "../connection";
 
 export class ListRepository {
   constructor(
-    private db: Prisma.ItemsDelegate<
+    private itemsTable: Prisma.ItemsDelegate<
+      Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined
+    >,
+    private usersItemsTable: Prisma.UsersItemsDelegate<
       Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined
     >
   ) {}
 
   static init() {
-    const db = prisma.items;
-    return new ListRepository(db);
+    const itemsTable = prisma.items;
+    const usersItemsTable = prisma.usersItems;
+    return new ListRepository(itemsTable, usersItemsTable);
   }
 
   async listMissingItems() {
-    const list = await this.db.findMany({
+    const list = await this.itemsTable.findMany({
       where: { UsersItems: null },
     });
     return list;
+  }
+
+  async findUserItemByItemId(itemId: number) {
+    const userItem = await this.usersItemsTable.findUnique({
+      where: {
+        itemId,
+      },
+    });
+
+    return userItem;
+  }
+
+  async toggleUserItem(userId: number, itemId: number, exists: boolean) {
+    if (exists) {
+      await this.usersItemsTable.delete({
+        where: { itemId: itemId },
+      });
+
+      return;
+    }
+
+    await this.usersItemsTable.create({
+      data: {
+        userId,
+        itemId,
+      },
+    });
   }
 }
