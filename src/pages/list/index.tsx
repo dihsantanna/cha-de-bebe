@@ -4,10 +4,12 @@ import { ListUserItems } from "@/components/ListUserItems";
 import { useAuthContext } from "@/context/AuthContext";
 import { api, setToken } from "@/services/api";
 import { recoverUserInformation } from "@/services/auth";
-import { deleteTokenCookies, getTokenFromCookies } from "@/utils/handleCookies";
 import { Items } from "@prisma/client";
 import { GetServerSideProps } from "next";
 import React, { useState } from "react";
+import { parseCookies, destroyCookie } from "nookies";
+
+const USER_TOKEN = "CHA_DE_BEBE_TOKEN";
 
 interface ListProps {
   items: Items[];
@@ -25,7 +27,7 @@ export default function List({
   const refreshItems = async () => {
     const LIST_URL = "/api/list/items";
     const USER_LIST_URL = "/api/list/user";
-    const token = getTokenFromCookies(null);
+    const token = parseCookies(null)[USER_TOKEN];
     setToken(token);
     const [listResponse, userListResponse] = await Promise.all([
       api.get(LIST_URL),
@@ -95,11 +97,11 @@ export default function List({
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const token = getTokenFromCookies(ctx);
+  const token = parseCookies(ctx)[USER_TOKEN];
   try {
     if (!token) {
       if (ctx.req.url === "/list") {
-        deleteTokenCookies(ctx);
+        destroyCookie(ctx, USER_TOKEN);
         return {
           redirect: {
             destination: "/singIn",
@@ -112,7 +114,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     recoverUserInformation(token);
   } catch (error) {
     if (ctx.req.url === "/list") {
-      deleteTokenCookies(ctx);
+      destroyCookie(ctx, USER_TOKEN);
       return {
         redirect: {
           destination: "/singIn",

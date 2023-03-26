@@ -4,7 +4,7 @@ const isProduction = process.env.NODE_ENV === "production";
 
 export const api = axios.create({
   baseURL: isProduction
-    ? `https://${process.env.VERCEL_URL}`
+    ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
     : "http://localhost:3000",
 });
 
