@@ -72,6 +72,19 @@ export function Header() {
             {aName}
           </span>
         )}
+        {isHome && (
+          <>
+            <span className="text-zinc-200 mr-2 flex items-center">ou</span>
+            <Link
+              className="flex justify-center items-center text-green-500 font-semibold border border-green-600 hover:bg-green-600 hover:text-zinc-900 transition-colors duration-300 rounded-sm mr-2"
+              href="/singUp"
+            >
+              <span className="animate-pulse w-full h-full py-1 px-2 hover:animate-none">
+                Registre-se aqui
+              </span>
+            </Link>
+          </>
+        )}
       </div>
     </header>
   );
