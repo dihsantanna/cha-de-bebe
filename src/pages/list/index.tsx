@@ -1,3 +1,4 @@
+import { ConfirmedPresence } from "@/components/ConfirmedPresence";
 import { ListMissingItems } from "@/components/ListMissingItems";
 import { ListUserItems } from "@/components/ListUserItems";
 import { useAuthContext } from "@/context/AuthContext";
@@ -38,6 +39,7 @@ export default function List({
     <>
       {isAuthenticated && (
         <div className="mx-auto py-6 w-11/12 bg-opaque-600 relative z-40 h-[calc(100vh-112px)] overflow-y-auto scrollbar-thin scrollbar-track-zinc-50 scrollbar-thumb-zinc-900">
+          <ConfirmedPresence />
           <section className="mx-auto rounded-b-lg flex flex-col items-center justify-center gap-6 max-w-xl p-2 text-zinc-900 relative z-40">
             <div className="text-center">
               <strong className="font-semibold text-lg">Obs</strong>: Fraldas

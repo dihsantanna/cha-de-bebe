@@ -1,3 +1,4 @@
+import { api, setToken } from "@/services/api";
 import {
   singInRequest,
   recoverUserInformation,
@@ -9,15 +10,8 @@ import {
   getTokenFromCookies,
   setTokenInCookies,
 } from "@/utils/handleCookies";
-import axios from "axios";
 import { useRouter } from "next/router";
-import React, {
-  createContext,
-  useState,
-  useContext,
-  useEffect,
-  useCallback,
-} from "react";
+import React, { createContext, useState, useContext, useEffect } from "react";
 import { useLoading } from "./LoadingContext";
 
 interface AuthContextType {
@@ -25,9 +19,7 @@ interface AuthContextType {
   singIn: (email: string) => Promise<void>;
   singUp: (user: IUser) => Promise<void>;
   logout: () => void;
-  userItems: number[];
-  addUserItems: (userItem: number) => void;
-  deleteUserItem: (userItem: number) => void;
+  toggleConfirmedPresence: () => Promise<void>;
   isAuthenticated: boolean;
 }
 
@@ -41,7 +33,6 @@ export const authContext = createContext<AuthContextType>(
 
 export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<IUserRegistered | null>(null);
-  const [userItems, setUserItems] = useState<number[]>([]);
   const { setLoading } = useLoading();
 
   const isAuthenticated = !!user;
@@ -65,12 +56,21 @@ export function AuthProvider({ children }: AuthProviderProps) {
     router.push("/list");
   };
 
+  const toggleConfirmedPresence = async () => {
+    const token = getTokenFromCookies(null);
+    setToken(token);
+    await api.patch(`/api/user/confirmedPresence`);
+    setUser((prevState) => ({
+      ...prevState!,
+      confirmedPresence: !prevState!.confirmedPresence,
+    }));
+  };
+
   const logout = () => {
     router.push("/");
     setLoading(true, "Saindo...");
     deleteTokenCookies(null);
     setUser(null);
-    setUserItems([]);
     setLoading(false);
   };
 
@@ -95,14 +95,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const addUserItems = (userItem: number) => {
-    setUserItems([...userItems, userItem]);
-  };
-
-  const deleteUserItem = (userItem: number) => {
-    setUserItems(userItems.filter((item) => item !== userItem));
-  };
-
   return (
     <authContext.Provider
       value={{
@@ -110,9 +102,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         singIn,
         singUp,
         logout,
-        userItems,
-        addUserItems,
-        deleteUserItem,
+        toggleConfirmedPresence,
         isAuthenticated,
       }}
     >
