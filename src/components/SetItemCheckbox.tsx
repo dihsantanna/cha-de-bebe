@@ -1,10 +1,11 @@
 import { api, setToken } from "@/services/api";
-import { getTokenFromCookies } from "@/utils/handleCookies";
 import { AxiosError } from "axios";
-import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { FaSpinner } from "react-icons/fa";
 import { toast } from "react-toastify";
+import { parseCookies } from "nookies";
+
+const USER_TOKEN = "CHA_DE_BEBE_TOKEN";
 
 interface SetItemCheckboxProps {
   itemId: number;
@@ -26,7 +27,7 @@ export function SetItemCheckbox({
     return async () => {
       setIsLoading(true);
       try {
-        const token = getTokenFromCookies(null);
+        const token = parseCookies(null)[USER_TOKEN];
         setToken(token);
         await api.put(`/api/list/items/${id}`);
         setChecked(!checked);

@@ -5,14 +5,17 @@ import {
   singUpRequest,
 } from "@/services/auth";
 import { IUser, IUserRegistered } from "@/types/IUser";
-import {
-  deleteTokenCookies,
-  getTokenFromCookies,
-  setTokenInCookies,
-} from "@/utils/handleCookies";
 import { useRouter } from "next/router";
 import React, { createContext, useState, useContext, useEffect } from "react";
 import { useLoading } from "./LoadingContext";
+import { setCookie, destroyCookie, parseCookies } from "nookies";
+
+const USER_TOKEN = "CHA_DE_BEBE_TOKEN";
+
+const cookieOptions = {
+  path: "/",
+  maxAge: 60 * 60 * 24, // 1 day
+};
 
 interface AuthContextType {
   user: IUserRegistered | null;
@@ -41,7 +44,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   const singIn = async (email: string) => {
     const { token, user: userRegistered } = await singInRequest(email);
-    setTokenInCookies(null, token);
+    setCookie(null, USER_TOKEN, token, cookieOptions);
     setUser(userRegistered);
     router.push("/list");
   };
@@ -52,12 +55,12 @@ export function AuthProvider({ children }: AuthProviderProps) {
       email,
     });
     setUser(userRegistered);
-    setTokenInCookies(null, token);
+    setCookie(null, USER_TOKEN, token, cookieOptions);
     router.push("/list");
   };
 
   const toggleConfirmedPresence = async () => {
-    const token = getTokenFromCookies(null);
+    const token = parseCookies(null)[USER_TOKEN];
     setToken(token);
     await api.patch(`/api/user/confirmedPresence`);
     setUser((prevState) => ({
@@ -69,28 +72,28 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const logout = () => {
     router.push("/");
     setLoading(true, "Saindo...");
-    deleteTokenCookies(null);
+    destroyCookie(null, USER_TOKEN);
     setUser(null);
     setLoading(false);
   };
 
   useEffect(() => {
-    const userToken = getTokenFromCookies(null);
+    const userToken = parseCookies(null)[USER_TOKEN];
     const isList = router.pathname === "/list";
     if (userToken) {
       recoverUserInformation(userToken)
         .then(({ user, token }) => {
-          setTokenInCookies(null, token);
+          setCookie(null, USER_TOKEN, token, cookieOptions);
           setUser(user);
           if (!isList) router.push("/list");
         })
         .catch(() => {
           if (isList) router.push("/singIn");
-          deleteTokenCookies(null);
+          destroyCookie(null, USER_TOKEN);
         });
     } else {
       if (isList) router.push("/singIn");
-      deleteTokenCookies(null);
+      destroyCookie(null, USER_TOKEN);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { deleteTokenCookies } from "@/utils/handleCookies";
 import { useAuthContext } from "@/context/AuthContext";
 
 export function Header() {

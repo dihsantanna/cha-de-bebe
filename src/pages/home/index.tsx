@@ -3,6 +3,9 @@ import { Items } from "@prisma/client";
 import React from "react";
 import { ListMissingItems } from "../../components/ListMissingItems";
 import { api } from "@/services/api";
+import { parseCookies } from "nookies";
+
+const USER_TOKEN = "CHA_DE_BEBE_TOKEN";
 
 interface HomeProps {
   items: Items[];
@@ -20,11 +23,21 @@ export default function Home({ items }: HomeProps) {
 }
 
 export const getServerSideProps: GetServerSideProps<HomeProps> = async (
-  _ctx
+  ctx
 ) => {
   const URL = "/api/list/items";
   const response = await api.get(URL);
   const items = response.data;
+
+  const token = parseCookies(ctx)[USER_TOKEN];
+  if (token) {
+    return {
+      redirect: {
+        destination: "/list",
+        permanent: false,
+      },
+    };
+  }
 
   return {
     props: {

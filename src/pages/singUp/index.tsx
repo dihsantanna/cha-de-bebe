@@ -3,7 +3,6 @@ import { toast } from "react-toastify";
 import { AxiosError } from "axios";
 import { useLoading } from "@/context/LoadingContext";
 import { useRouter } from "next/router";
-import { setTokenInCookies } from "@/utils/handleCookies";
 import { useAuthContext } from "@/context/AuthContext";
 
 export default function SingUpForm() {
