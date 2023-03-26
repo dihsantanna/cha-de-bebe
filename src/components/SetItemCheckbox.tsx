@@ -10,12 +10,14 @@ interface SetItemCheckboxProps {
   itemId: number;
   changeItem: () => void;
   isChecked?: boolean;
+  labelId?: string;
 }
 
 export function SetItemCheckbox({
   itemId,
   changeItem,
   isChecked,
+  labelId,
 }: SetItemCheckboxProps) {
   const [checked, setChecked] = useState(!!isChecked);
   const [isLoading, setIsLoading] = useState(false);
@@ -46,10 +48,11 @@ export function SetItemCheckbox({
     <FaSpinner className="animate-loading w-4 h-4" />
   ) : (
     <input
-      className="cursor-pointer"
+      className="cursor-pointer w-4 h-4"
       type="checkbox"
       checked={checked}
       onChange={toggleItem(itemId)}
+      id={labelId}
     />
   );
 }

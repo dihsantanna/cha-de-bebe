@@ -23,18 +23,22 @@ export function ListUserItems({ userItems, refreshItems }: ListUserItemsProps) {
         {userItems.map(({ id, item }, index) => (
           <div
             key={id}
-            className={`flex justify-center items-center h-max ${
+            className={`flex justify-center items-center h-max hover:bg-red-100 cursor-pointer ${
               index % 2 === 0 ? "bg-opaque-500" : "bg-silver-opaque-500"
             }`}
           >
-            <span className="text-zinc-900 flex items-center justify-center h-full text-center text-lg font-medium px-2 py-1 w-[70%]">
+            <label
+              htmlFor={`${id}`}
+              className="cursor-pointer text-zinc-900 flex items-center justify-center h-full text-center text-lg font-medium px-2 py-1 w-[70%]"
+            >
               {item}
-            </span>
+            </label>
             <span className="flex items-center justify-center w-[30%] h-full text-center text-lg px-2 py-1">
               <SetItemCheckbox
                 itemId={id}
                 changeItem={refreshItems!}
                 isChecked
+                labelId={`${id}`}
               />
             </span>
           </div>
