@@ -6,8 +6,9 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
 }
 
 model Users {
@@ -23,6 +24,8 @@ model UsersItems {
   itemId Int   @unique
   users  Users @relation(fields: [userId], references: [id])
   items  Items @relation(fields: [itemId], references: [id])
+
+  @@index([userId])
 }
 
 model Items {
