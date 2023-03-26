@@ -1,4 +1,4 @@
-import { GetStaticProps } from "next";
+import { GetServerSideProps } from "next";
 import { Items } from "@prisma/client";
 import React from "react";
 import { ListMissingItems } from "../../components/ListMissingItems";
@@ -19,7 +19,9 @@ export default function Home({ items }: HomeProps) {
   );
 }
 
-export const getStaticProps: GetStaticProps<HomeProps> = async (_ctx) => {
+export const getServerSideProps: GetServerSideProps<HomeProps> = async (
+  _ctx
+) => {
   const URL = "/api/list/items";
   const response = await api.get(URL);
   const items = response.data;
@@ -28,6 +30,5 @@ export const getStaticProps: GetStaticProps<HomeProps> = async (_ctx) => {
     props: {
       items,
     },
-    revalidate: (60 * 60) / 6, // 10 minutes
   };
 };
