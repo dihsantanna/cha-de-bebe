@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse, NextPageContext } from "next";
-import { setCookie, parseCookies, destroyCookie } from "nookies";
+import nookies from "nookies";
 
 const USER_TOKEN = "CHA_DE_BEBE_TOKEN";
 
@@ -12,7 +12,7 @@ export const setTokenInCookies = (
     | null,
   token: string
 ) => {
-  setCookie(ctx, USER_TOKEN, token, {
+  nookies.set(ctx, USER_TOKEN, token, {
     path: "/",
     maxAge: 60 * 60 * 24, // 1 day
   });
@@ -26,7 +26,7 @@ export const getTokenFromCookies = (
       }
     | null
 ) => {
-  const cookies = parseCookies(ctx);
+  const cookies = nookies.get(ctx);
   return cookies[USER_TOKEN];
 };
 
@@ -38,5 +38,5 @@ export const deleteTokenCookies = async (
       }
     | null
 ) => {
-  destroyCookie(ctx, USER_TOKEN);
+  nookies.destroy(ctx, USER_TOKEN);
 };
