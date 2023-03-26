@@ -38,9 +38,9 @@ export function Header() {
     <header className="w-full h-28 py-4 bg-zinc-900 flex items-center justify-between flex-col gap-2 relative z-40">
       {isList && isAuthenticated && (
         <>
-          <div className="absolute text-zinc-200 text-sm left-3 top-3">
+          <div className="absolute text-zinc-200 text-base left-3 bottom-3">
             <p>Seja bem-vindo(a)</p>
-            <p className="font-semibold">{name}!</p>
+            <p className="font-semibold italic text-green-500">{name}!</p>
           </div>
           <div className="absolute text-zinc-200 text-sm right-4 top-4">
             <button

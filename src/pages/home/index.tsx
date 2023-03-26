@@ -1,8 +1,8 @@
 import { GetStaticProps } from "next";
 import { Items } from "@prisma/client";
-import axios from "axios";
 import React from "react";
 import { ListMissingItems } from "../../components/ListMissingItems";
+import { api } from "@/services/api";
 
 interface HomeProps {
   items: Items[];
@@ -19,13 +19,9 @@ export default function Home({ items }: HomeProps) {
   );
 }
 
-export const getStaticProps: GetStaticProps<HomeProps> = async (context) => {
-  const isProduction = process.env.NODE_ENV === "production";
-  const URL = isProduction
-    ? (process.env.NEXT_PUBLIC_VERCEL_URL as string).replace(/\/$/, "") +
-      "/api/list/items"
-    : "http://localhost:3000/api/list/items";
-  const response = await axios.get(URL);
+export const getStaticProps: GetStaticProps<HomeProps> = async (_ctx) => {
+  const URL = "/api/list/items";
+  const response = await api.get(URL);
   const items = response.data;
 
   return {
