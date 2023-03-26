@@ -19,8 +19,13 @@ export default function SingInForm() {
     setLoading(true, "Entrando...");
     try {
       await singIn(email);
+      toast.success("Entrou com sucesso!");
     } catch (error) {
-      toast.error(((error as AxiosError).response?.data as Error).message);
+      console.log(error);
+      toast.error(
+        ((error as AxiosError).response?.data as Error).message ||
+          (error as Error).message
+      );
     } finally {
       setLoading(false);
     }
