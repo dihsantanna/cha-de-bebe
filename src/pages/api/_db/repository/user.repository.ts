@@ -1,5 +1,5 @@
 import { IUser } from "@/types/IUser";
-import { Prisma } from "@prisma/client";
+import { Prisma, Users } from "@prisma/client";
 import { prisma } from "../connection";
 
 export class UserRepository {
@@ -30,6 +30,13 @@ export class UserRepository {
   async findById(id: number) {
     return await this.db.findUnique({
       where: { id },
+    });
+  }
+
+  async update(id: number, data: Users) {
+    await this.db.update({
+      where: { id },
+      data,
     });
   }
 }

@@ -1,5 +1,5 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { IUser, IUserRegistered } from "@/types/IUser";
+import { IUserRegistered } from "@/types/IUser";
 import { CustomError } from "@/utils/CustomError";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { SingInController } from "./_singIn.controller";
