@@ -13,7 +13,7 @@ interface HomeProps {
 
 export default function Home({ items }: HomeProps) {
   return (
-    <section className="flex flex-col justify-evenly items-center gap-4 h-[calc(100vh-112px)] relative z-40">
+    <section className="flex flex-col mt-3 justify-center items-center gap-1 h-[calc(100vh-112px)] relative z-40">
       <div className="text-3xl italic font-pacifico text-green-600 bg-opaque-400 px-2 py-1 rounded-lg">
         Lista do Bebê
       </div>

@@ -16,7 +16,7 @@ export function ListMissingItems({
   const router = useRouter();
   const isList = router.pathname === "/list";
   return (
-    <div className="max-w-3xl w-11/12 mx-auto border-2 border-zinc-200 rounded-lg relative z-40 h-[500px]">
+    <div className="max-w-3xl w-11/12 mx-auto border-2 border-zinc-200 rounded-lg relative z-40 h-[500px] max-h-[60vh]">
       <div className="bg-zinc-900 rounded-t-lg text-xl h-7 flex justify-center items-center text-zinc-200">
         <span className="flex items-center justify-center font-semibold w-[70%]">
           Item
