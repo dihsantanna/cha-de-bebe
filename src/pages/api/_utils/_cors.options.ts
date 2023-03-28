@@ -5,7 +5,16 @@ export const corsOptions: CorsOptions = {
   origin: "*",
   optionsSuccessStatus: 200,
   allowedHeaders: [
-    "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version",
+    "X-CSRF-Token",
+    "X-Requested-With",
+    "Accept",
+    "Accept-Version",
+    "Content-Length",
+    "Content-MD5",
+    "Content-Type",
+    "Date",
+    "X-Api-Version",
+    "Authorization",
   ],
   credentials: true,
 };
