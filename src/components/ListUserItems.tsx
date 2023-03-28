@@ -10,12 +10,12 @@ interface ListUserItemsProps {
 
 export function ListUserItems({ userItems, refreshItems }: ListUserItemsProps) {
   return (
-    <div className="max-w-3xl w-11/12 mx-auto border-2 border-zinc-200 rounded-lg relative z-40 h-[500px]">
-      <div className="bg-zinc-900 rounded-t-lg text-xl h-7 flex justify-center items-center text-zinc-200">
-        <span className="flex items-center justify-center font-semibold w-[70%]">
+    <div className="max-w-3xl w-full mx-auto border-2 border-zinc-200 rounded-lg relative z-40 h-[500px]">
+      <div className="bg-zinc-900 rounded-t-lg text-lg h-7 flex justify-center items-center text-zinc-200">
+        <span className="flex items-center justify-center font-semibold w-[61%]">
           Item
         </span>
-        <span className="flex items-center justify-center w-[30%] font-semibold">
+        <span className="flex items-center justify-center w-[39%] h-full text-center font-semibold text-lg px-2 py-1">
           Desmarcar
         </span>
       </div>
@@ -29,11 +29,11 @@ export function ListUserItems({ userItems, refreshItems }: ListUserItemsProps) {
           >
             <label
               htmlFor={`${id}`}
-              className="cursor-pointer text-zinc-900 flex items-center justify-center h-full text-center text-lg font-medium px-2 py-1 w-[70%]"
+              className="cursor-pointer text-zinc-900 flex items-center justify-center h-full text-center text-lg font-medium px-2 py-1 w-[61%]"
             >
               {item}
             </label>
-            <span className="flex items-center justify-center w-[30%] h-full text-center text-lg px-2 py-1">
+            <span className="flex items-center justify-center w-[39%] h-full text-center text-lg px-2 py-1">
               <SetItemCheckbox
                 itemId={id}
                 changeItem={refreshItems!}
