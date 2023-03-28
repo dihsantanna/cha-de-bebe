@@ -50,10 +50,11 @@ export function ListUserItems({ userItems, refreshItems }: ListUserItemsProps) {
             Nos ajude a completar a lista.
             <Image
               src="/baby_elephant_thanks.png"
-              width={200}
-              height={200}
+              width={0}
+              height={0}
+              sizes="100vw"
               alt="Elefante agradecendo"
-              className="opacity-70"
+              className="opacity-70 w-[200px] h-[200px]"
             />
           </div>
         )}

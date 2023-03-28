@@ -12,8 +12,10 @@ export function Loading() {
           <div className="animate-pulse flex flex-col items-center justify-center gap-6">
             <Image
               src="/baby-elephant.png"
-              width={150}
-              height={150}
+              width={0}
+              height={0}
+              sizes="100vw"
+              className="w-[150px] h-[150px]"
               alt="imagem de um elefante cinza"
             />
             <span className="text-zinc-900 text-3xl font-pacifico">

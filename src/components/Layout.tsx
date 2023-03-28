@@ -30,8 +30,10 @@ export function Layout({ children }: LayoutProps) {
             priority
             alt="bebe elefante"
             src="/baby-elephant.png"
-            width={500}
-            height={500}
+            width={0}
+            height={0}
+            sizes="100vw"
+            className="w-[500px] h-[500px]"
           />
         </div>
       </main>
