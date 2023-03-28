@@ -4,9 +4,16 @@ import { StatusCodes } from "http-status-codes";
 import { UserController } from "./_user.controller";
 import nc from "next-connect";
 import cors from "cors";
+import { corsOptions } from "../_utils/_cors.options";
 
 export default nc<NextApiRequest, NextApiResponse>()
-  .use(cors())
+  .use(cors(corsOptions))
+  .options((req, res) => {
+    if (req.method === "OPTIONS") {
+      res.status(200).end();
+      return;
+    }
+  })
   .patch(async (req, res) => {
     try {
       const token = req.headers.authorization;

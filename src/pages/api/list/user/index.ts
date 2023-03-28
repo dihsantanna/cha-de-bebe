@@ -5,13 +5,20 @@ import nc from "next-connect";
 import cors from "cors";
 import { ListController } from "../_list.controller";
 import { Items } from "@prisma/client";
+import { corsOptions } from "../../_utils/_cors.options";
 
 interface Response {
   message?: string;
 }
 
 export default nc<NextApiRequest, NextApiResponse<Response | Items[]>>()
-  .use(cors())
+  .use(cors(corsOptions))
+  .options((req, res) => {
+    if (req.method === "OPTIONS") {
+      res.status(200).end();
+      return;
+    }
+  })
   .get(async (req, res) => {
     try {
       const token = req.headers.authorization as string;

@@ -6,6 +6,7 @@ import { SingInController } from "./_singIn.controller";
 import { StatusCodes } from "http-status-codes";
 import nc from "next-connect";
 import cors from "cors";
+import { corsOptions } from "../_utils/_cors.options";
 
 interface Response {
   message?: string;
@@ -13,7 +14,13 @@ interface Response {
   user?: IUserRegistered;
 }
 export default nc<NextApiRequest, NextApiResponse<Response>>()
-  .use(cors())
+  .use(cors(corsOptions))
+  .options((req, res) => {
+    if (req.method === "OPTIONS") {
+      res.status(200).end();
+      return;
+    }
+  })
   .post(async (req, res) => {
     try {
       const { email } = req.body as { email: string };
