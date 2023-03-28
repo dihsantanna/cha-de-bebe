@@ -1,18 +1,16 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { ListController } from "../_list.controller";
 import { StatusCodes } from "http-status-codes";
-import { Items } from "@prisma/client";
+import nc from "next-connect";
+import cors from "cors";
 
 interface Response {
   message: string;
 }
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<Response>
-) {
-  const isPut = req.method === "PUT";
-  if (isPut) {
+export default nc<NextApiRequest, NextApiResponse<Response>>()
+  .use(cors())
+  .put(async (req, res) => {
     try {
       const itemId = req.query.itemId as string;
       const token = req.headers.authorization as string;
@@ -23,5 +21,4 @@ export default async function handler(
       const { message } = error as Error;
       res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message });
     }
-  }
-}
+  });

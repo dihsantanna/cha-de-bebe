@@ -4,19 +4,17 @@ import { CustomError } from "@/utils/CustomError";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { SingUpController } from "./_singUp.controller";
 import { StatusCodes } from "http-status-codes";
+import nc from "next-connect";
+import cors from "cors";
 
 interface Response {
   message?: string;
   token?: string;
   user?: IUserRegistered;
 }
-
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<Response>
-) {
-  const isPost = req.method === "POST";
-  if (isPost) {
+export default nc<NextApiRequest, NextApiResponse<Response>>()
+  .use(cors())
+  .post(async (req, res) => {
     try {
       const { name, email } = req.body as IUser;
       const user = { name, email };
@@ -29,5 +27,4 @@ export default async function handler(
       const { message, code } = error as CustomError;
       res.status(code || 500).json({ message });
     }
-  }
-}
+  });

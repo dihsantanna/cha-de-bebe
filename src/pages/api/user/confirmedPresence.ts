@@ -1,14 +1,13 @@
+import { NextApiRequest, NextApiResponse } from "next";
 import { CustomError } from "@/utils/CustomError";
 import { StatusCodes } from "http-status-codes";
-import { NextApiRequest, NextApiResponse } from "next";
 import { UserController } from "./_user.controller";
+import nc from "next-connect";
+import cors from "cors";
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
-  const isPatch = req.method === "PATCH";
-  if (isPatch) {
+export default nc<NextApiRequest, NextApiResponse>()
+  .use(cors())
+  .patch(async (req, res) => {
     try {
       const token = req.headers.authorization;
       const controller = UserController.init();
@@ -20,5 +19,4 @@ export default async function handler(
       const { message, code } = error as CustomError;
       res.status(code || StatusCodes.INTERNAL_SERVER_ERROR).json({ message });
     }
-  }
-}
+  });

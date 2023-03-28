@@ -1,4 +1,4 @@
-import { Prisma } from "@prisma/client";
+import { Items, Prisma } from "@prisma/client";
 import { prisma } from "../connection";
 
 export class ListRepository {
@@ -60,8 +60,8 @@ export class ListRepository {
     });
 
     if (userItems.length) {
-      return userItems.map((item) => item.items);
+      return userItems.map((item) => item.items) as unknown as Items[];
     }
-    return userItems;
+    return userItems as unknown as Items[];
   }
 }

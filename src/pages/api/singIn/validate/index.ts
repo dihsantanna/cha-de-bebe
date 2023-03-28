@@ -4,6 +4,8 @@ import { CustomError } from "@/utils/CustomError";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { SingInController } from "../_singIn.controller";
 import { StatusCodes } from "http-status-codes";
+import nc from "next-connect";
+import cors from "cors";
 
 interface Response {
   message?: string;
@@ -11,12 +13,9 @@ interface Response {
   token?: string;
 }
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<IUserRegistered | Response>
-) {
-  const isGet = req.method === "GET";
-  if (isGet) {
+export default nc<NextApiRequest, NextApiResponse<Response>>()
+  .use(cors())
+  .get(async (req, res) => {
     try {
       const { authorization } = req.headers as { authorization: string };
 
@@ -28,5 +27,4 @@ export default async function handler(
       const { message, code } = error as CustomError;
       res.status(code || 500).json({ message });
     }
-  }
-}
+  });
