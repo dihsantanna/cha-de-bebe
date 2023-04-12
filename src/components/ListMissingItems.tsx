@@ -33,7 +33,7 @@ export function ListMissingItems({
             key={id}
             className={`flex justify-center items-center h-max hover:bg-green-100 cursor-pointer ${
               index % 2 === 0 ? "bg-opaque-500" : "bg-silver-opaque-500"
-            }`}
+            } py-6`}
           >
             <label
               htmlFor={`${id}`}

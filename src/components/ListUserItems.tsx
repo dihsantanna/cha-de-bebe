@@ -24,7 +24,7 @@ export function ListUserItems({ userItems, refreshItems }: ListUserItemsProps) {
           <div
             key={id}
             className={`flex justify-center items-center h-max hover:bg-red-100 cursor-pointer ${
-              index % 2 === 0 ? "bg-opaque-500" : "bg-silver-opaque-500"
+              index % 2 === 0 ? "bg-opaque-500" : "bg-silver-opaque-500 py-6"
             }`}
           >
             <label
