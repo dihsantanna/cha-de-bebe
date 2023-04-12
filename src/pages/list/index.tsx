@@ -8,6 +8,7 @@ import { Items } from "@prisma/client";
 import { GetServerSideProps } from "next";
 import React, { useState } from "react";
 import { parseCookies, destroyCookie } from "nookies";
+import { Notes } from "@/components/Notes";
 
 const USER_TOKEN = "CHA_DE_BEBE_TOKEN";
 
@@ -43,35 +44,7 @@ export default function List({
         <div className="mx-auto py-6 w-11/12 bg-opaque-600 relative z-40 h-[calc(100vh-112px)] overflow-y-auto scrollbar-thin scrollbar-track-zinc-50 scrollbar-thumb-zinc-900">
           <ConfirmedPresence />
           <section className="mx-auto rounded-b-lg flex flex-col items-center justify-center gap-6 max-w-xl p-2 text-zinc-900 relative z-40">
-            <div className="text-center">
-              <strong className="font-semibold text-lg">Obs</strong>: Fraldas
-              Descartáveis (somente Babysec, Pom Pom, Pampers e Huggies)
-            </div>
-            <div className="text-center">
-              <strong className="font-bold text-lg">Priorizar Cores:</strong>
-              <ul className="flex">
-                <li className="ml-1 w-max text-green-500 text-stroke-zinc font-bold">
-                  verde
-                </li>
-                ,
-                <li className="ml-1 w-max text-amber-400 text-stroke-zinc font-bold">
-                  amarelo
-                </li>
-                ,
-                <li className="ml-1 w-max text-white text-stroke-zinc font-bold">
-                  branco
-                </li>
-                ,
-                <li className="mx-1 w-max text-orange-900 text-stroke-zinc font-bold">
-                  marrom
-                </li>
-                ou
-                <li className="ml-1 w-max text-gray-600 text-stroke-zinc font-bold">
-                  cinza
-                </li>
-                .
-              </ul>
-            </div>
+            <Notes />
           </section>
           <section className="h-max relative z-40 py-6">
             <div className="h-max flex flex-col items-center py-2 rounded-lg w-11/12 mx-auto">
