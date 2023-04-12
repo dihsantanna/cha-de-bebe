@@ -41,7 +41,7 @@ export default function List({
   return (
     <>
       {isAuthenticated && (
-        <div className="mx-auto py-6 w-11/12 bg-opaque-600 relative z-40 h-[calc(100vh-112px)] overflow-y-auto scrollbar-thin scrollbar-track-zinc-50 scrollbar-thumb-zinc-900">
+        <div className="mx-auto py-6 w-full max-w-3xl bg-opaque-600 relative z-40 h-[calc(100vh-112px)] overflow-y-auto scrollbar-thin scrollbar-track-zinc-50 scrollbar-thumb-zinc-900">
           <ConfirmedPresence />
           <section className="mx-auto rounded-b-lg flex flex-col items-center justify-center gap-6 max-w-xl p-2 text-zinc-900 relative z-40">
             <Notes />
