@@ -13,7 +13,7 @@ datasource db {
 
 model Users {
   id                Int          @id @default(autoincrement())
-  email             String       @unique
+  username          String       @unique
   name              String
   confirmedPresence Boolean      @default(false)
   UsersItems        UsersItems[]
