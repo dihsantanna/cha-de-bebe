@@ -15,9 +15,10 @@ export class SingUpController {
 
   validate() {
     const emailRegex = /^[a-z0-9._-]+@[a-z0-9]+\.[a-z]+(\.([a-z]+))?$/i;
+    const phoneRegex = /\d{11}/;
 
-    const { name, email } = this.user;
-    if (!name || !email) {
+    const { name, username } = this.user;
+    if (!name || !username) {
       throw new CustomError(
         "Todos os campos são obrigatórios",
         code.BAD_REQUEST
@@ -31,8 +32,14 @@ export class SingUpController {
       );
     }
 
-    if (!emailRegex.test(email)) {
-      throw new CustomError("E-mail inválido", code.BAD_REQUEST);
+    const isEmail = emailRegex.test(username);
+    const isPhone = phoneRegex.test(username);
+
+    if (!isEmail && !isPhone) {
+      throw new CustomError(
+        "Por favor insira um email/celular válido",
+        code.BAD_REQUEST
+      );
     }
   }
 

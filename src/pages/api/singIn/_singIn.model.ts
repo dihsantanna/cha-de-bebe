@@ -8,8 +8,8 @@ export class SingInModel {
     return new SingInModel(repository);
   }
 
-  async findUserByEmailHash(emailHash: string) {
-    return await this.repo.findByEmailHash(emailHash);
+  async findUserByUsernameHash(usernameHash: string) {
+    return await this.repo.findByUsernameHash(usernameHash);
   }
 
   async findUserById(id: number) {

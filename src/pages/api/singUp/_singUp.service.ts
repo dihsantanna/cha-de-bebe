@@ -14,18 +14,18 @@ export class SingUpService {
     return new SingUpService(repository);
   }
 
-  private async userExists(email: string) {
-    const exists = !!(await this.model.findUserByEmailHash(email));
+  private async userExists(username: string) {
+    const exists = !!(await this.model.findUserByUsernameHash(username));
 
     if (exists)
       throw new CustomError(
-        "Email já esta sendo utilizado",
+        "username já esta sendo utilizado",
         StatusCodes.BAD_REQUEST
       );
   }
 
-  private emailToMd5(email: string) {
-    return createHash("md5").update(email).digest("hex");
+  private usernameToMd5(username: string) {
+    return createHash("md5").update(username).digest("hex");
   }
 
   private createJwtToken(payload: ITokenPayload) {
@@ -37,19 +37,19 @@ export class SingUpService {
     return token;
   }
 
-  async singUp({ name, email }: IUser) {
-    const emailHash = this.emailToMd5(email);
+  async singUp({ name, username }: IUser) {
+    const usernameHash = this.usernameToMd5(username);
 
-    await this.userExists(emailHash);
+    await this.userExists(usernameHash);
 
-    const newUser = { name, email: emailHash };
+    const newUser = { name, username: usernameHash };
     const user = await this.model.create(newUser);
 
     const { id } = user;
 
     const token = this.createJwtToken({ id, name });
 
-    Reflect.deleteProperty(user, "email");
+    Reflect.deleteProperty(user, "username");
 
     return { user, token };
   }

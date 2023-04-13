@@ -4,7 +4,6 @@ import { ITokenPayload } from "@/types/ITokenPayload";
 import jwt from "jsonwebtoken";
 import { CustomError } from "@/utils/CustomError";
 import { StatusCodes } from "http-status-codes";
-import { IUserRegistered } from "@/types/IUser";
 
 export class SingInService {
   constructor(private model: SingInModel) {}
@@ -14,8 +13,8 @@ export class SingInService {
     return new SingInService(repository);
   }
 
-  private emailToMd5(email: string) {
-    return createHash("md5").update(email).digest("hex");
+  private usernameToMd5(username: string) {
+    return createHash("md5").update(username).digest("hex");
   }
 
   private createJwtToken(payload: ITokenPayload) {
@@ -27,9 +26,9 @@ export class SingInService {
     return token;
   }
 
-  async singIn(email: string) {
-    const emailHash = this.emailToMd5(email);
-    const user = await this.model.findUserByEmailHash(emailHash);
+  async singIn(username: string) {
+    const usernameHash = this.usernameToMd5(username);
+    const user = await this.model.findUserByUsernameHash(usernameHash);
 
     if (!user)
       throw new CustomError("Usuário não encontrado", StatusCodes.UNAUTHORIZED);
@@ -38,7 +37,7 @@ export class SingInService {
 
     const token = this.createJwtToken({ id, name });
 
-    Reflect.deleteProperty(user, "email");
+    Reflect.deleteProperty(user, "username");
 
     return { user, token };
   }
@@ -62,7 +61,7 @@ export class SingInService {
 
       const token = this.createJwtToken({ id, name });
 
-      Reflect.deleteProperty(user, "email");
+      Reflect.deleteProperty(user, "username");
 
       return { user, token };
     } catch (error) {
