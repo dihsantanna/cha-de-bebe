@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "vercel-build": "npx prisma migrate deploy",
     "start": "next start",
     "lint": "next lint",
     "seed": "npx prisma db seed"
