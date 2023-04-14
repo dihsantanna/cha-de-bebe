@@ -23,9 +23,9 @@ export default nc<NextApiRequest, NextApiResponse<Response>>()
   })
   .post(async (req, res) => {
     try {
-      const { email } = req.body as { email: string };
+      const { username } = req.body as { username: string };
 
-      const controller = SingInController.init(email);
+      const controller = SingInController.init(username);
       const response = await controller.singIn();
 
       res.status(StatusCodes.CREATED).json(response);

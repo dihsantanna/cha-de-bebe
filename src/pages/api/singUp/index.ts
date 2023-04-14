@@ -23,8 +23,8 @@ export default nc<NextApiRequest, NextApiResponse<Response>>()
   })
   .post(async (req, res) => {
     try {
-      const { name, email } = req.body as IUser;
-      const user = { name, email };
+      const { name, username } = req.body as IUser;
+      const user = { name, username };
 
       const controller = SingUpController.init(user);
       const response = await controller.singUp();

@@ -9,8 +9,8 @@ export class SingUpModel {
     return new SingUpModel(repository);
   }
 
-  async findUserByEmailHash(emailHash: string) {
-    return await this.repo.findByEmailHash(emailHash);
+  async findUserByUsernameHash(username: string) {
+    return await this.repo.findByUsernameHash(username);
   }
 
   async create(user: IUser) {

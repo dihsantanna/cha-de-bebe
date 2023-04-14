@@ -19,7 +19,7 @@ const cookieOptions = {
 
 interface AuthContextType {
   user: IUserRegistered | null;
-  singIn: (email: string) => Promise<void>;
+  singIn: (username: string) => Promise<void>;
   singUp: (user: IUser) => Promise<void>;
   logout: () => void;
   toggleConfirmedPresence: () => Promise<void>;
@@ -42,17 +42,17 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   const router = useRouter();
 
-  const singIn = async (email: string) => {
-    const { token, user: userRegistered } = await singInRequest(email);
+  const singIn = async (username: string) => {
+    const { token, user: userRegistered } = await singInRequest(username);
     setCookie(null, USER_TOKEN, token, cookieOptions);
     setUser(userRegistered);
     router.push("/list");
   };
 
-  const singUp = async ({ name, email }: IUser) => {
+  const singUp = async ({ name, username }: IUser) => {
     const { token, user: userRegistered } = await singUpRequest({
       name,
-      email,
+      username,
     });
     setUser(userRegistered);
     setCookie(null, USER_TOKEN, token, cookieOptions);

@@ -21,9 +21,9 @@ export class UserRepository {
     return newUser;
   }
 
-  async findByEmailHash(email: string) {
+  async findByUsernameHash(username: string) {
     return await this.db.findUnique({
-      where: { email },
+      where: { username },
     });
   }
 

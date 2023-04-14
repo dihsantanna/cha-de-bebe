@@ -6,17 +6,17 @@ type AuthResponse = {
   user: IUserRegistered;
 };
 
-export async function singInRequest(email: string) {
+export async function singInRequest(username: string) {
   const { data } = await api.post<Promise<AuthResponse>>("/api/singIn", {
-    email,
+    username,
   });
   return data;
 }
 
-export async function singUpRequest({ name, email }: IUser) {
+export async function singUpRequest({ name, username }: IUser) {
   const { data } = await api.post<Promise<AuthResponse>>("/api/singUp", {
     name,
-    email,
+    username,
   });
   return data;
 }
