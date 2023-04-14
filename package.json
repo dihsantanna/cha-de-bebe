@@ -4,7 +4,6 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "vercel-build": "npx prisma migrate deploy",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
