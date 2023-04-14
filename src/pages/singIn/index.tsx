@@ -7,18 +7,18 @@ import { useAuthContext } from "@/context/AuthContext";
 export default function SingInForm() {
   const { setLoading } = useLoading();
   const { singIn } = useAuthContext();
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.currentTarget;
-    setEmail(value);
+    setUsername(value);
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setLoading(true, "Entrando...");
     try {
-      await singIn(email);
+      await singIn(username);
       toast.success("Entrou com sucesso!");
     } catch (error) {
       console.log(error);
@@ -40,17 +40,18 @@ export default function SingInForm() {
         <legend className="font-pacifico font-medium mb-9 text-2xl">
           Entre na sua lista
         </legend>
-        <label className="w-full" htmlFor="email">
-          Email
+        <label className="w-full" htmlFor="username">
+          Email ou DDD + Celular
           <input
-            title="email"
-            name="email"
-            type="email"
-            placeholder="Digite seu email aqui"
-            value={email}
+            title="Email ou DDD + Celular"
+            name="username"
+            type="text"
+            placeholder="Digite seu email ou DDD + Celular"
+            value={username}
             onChange={handleChange}
             className=" w-full px-2 py-1 placeholder:text-zinc-700"
           />
+           <div className="w-full text-sm italic text-zinc-700 py-1">ex: email@email.com ou 21987654321</div>
         </label>
         <button
           className="text-green-600 border border-green-600 px-2 py-2 hover:bg-green-600 hover:text-zinc-900 font-semibold transition-colors duration-300 rounded-sm mt-2"
