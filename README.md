@@ -1,38 +1,64 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+# Chá de Bebê
 
-First, run the development server:
+Aplicação Next, construída para gerenciamento da lista de cha de bebê do meu filho Rafael. O front e o backend estão unificados pelo next por questões de comodidade e dinamismo e isso não reflete a usabilidade padrão.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+
+
+## Variáveis de Ambiente
+
+Para rodar esse projeto, você vai precisar adicionar as seguintes variáveis de ambiente no seu .env
+
+```env
+DATABASE_URL="mysql://user:password@localhost:3306/dbname"
+JWT_SECRET="secret"
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## Stack utilizada
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+**Front-end:**
+- Next.js
+- TailwindCSS
+- Nookies
+- Axios
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+**Back-end:**
+- Next.js
+- Prisma
+- JWT
+- MD5
+- MySql
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Rodando localmente
 
-## Learn More
+Clone o projeto
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+  git clone git@github.com:dihsantanna/cha-de-bebe.git
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Entre no diretório do projeto
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+```bash
+  cd cha-de-bebe
+```
 
-## Deploy on Vercel
+Instale as dependências
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+  npm install
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Inicie o servidor
+
+```bash
+  npm run dev
+```
+
+*_lembre-se de que é necessário preencher as variáveis de ambiente no arquivo `.env`._
+
+## Documentação
+
+Para o futuro, pretendo documentar os componentes com `Storybook` e as rotas da API com `Swagger`.
+
