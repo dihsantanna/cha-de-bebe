@@ -43,7 +43,6 @@
     "ts-node": "^10.9.1"
   },
   "prisma": {
-    "schema": "src/pages/api/_db/prisma/schema.prisma",
-    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} src/pages/api/_db/prisma/seeds/seed.ts"
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seeds/seed.ts"
   }
 }
