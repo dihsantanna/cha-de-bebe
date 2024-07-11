@@ -2,13 +2,11 @@ import React, { ChangeEvent, useState } from "react";
 import { toast } from "react-toastify";
 import { AxiosError } from "axios";
 import { useLoading } from "@/context/LoadingContext";
-import { useRouter } from "next/router";
 import { useAuthContext } from "@/context/AuthContext";
 
 export default function SingUpForm() {
   const { setLoading } = useLoading();
   const { singUp } = useAuthContext();
-  const router = useRouter();
   const [user, setUser] = useState({
     username: "",
     name: "",

@@ -3,12 +3,8 @@ import { prisma } from "../connection";
 
 export class ListRepository {
   constructor(
-    private itemsTable: Prisma.ItemsDelegate<
-      Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined
-    >,
-    private usersItemsTable: Prisma.UsersItemsDelegate<
-      Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined
-    >
+    private itemsTable: Prisma.ItemsDelegate,
+    private usersItemsTable: Prisma.UsersItemsDelegate
   ) {}
 
   static init() {

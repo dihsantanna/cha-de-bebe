@@ -3,11 +3,7 @@ import { Prisma, Users } from "@prisma/client";
 import { prisma } from "../connection";
 
 export class UserRepository {
-  constructor(
-    private db: Prisma.UsersDelegate<
-      Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined
-    >
-  ) {}
+  constructor(private db: Prisma.UsersDelegate) {}
 
   static init() {
     const db = prisma.users;
