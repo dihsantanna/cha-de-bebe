@@ -7,12 +7,8 @@ Aplicação Next, construída para gerenciamento da lista de cha de bebê do meu
 
 ## Variáveis de Ambiente
 
-Para rodar esse projeto, você vai precisar adicionar as seguintes variáveis de ambiente no seu .env
-
-```env
-DATABASE_URL="mysql://user:password@localhost:3306/dbname"
-JWT_SECRET="secret"
-```
+Para rodar esse projeto, você vai precisar renomear o arquivo .env.example para .env, e preencher as variaveis corretamente.
+Estou utilizando como banco de dados o [Vercel Postgres](https://postgres-starter.vercel.app/), mas você pode configurar outro banco de sua preferencia. Porque não utilizar docker! :wink:
 
 
 ## Stack utilizada
@@ -28,7 +24,7 @@ JWT_SECRET="secret"
 - Prisma
 - JWT
 - MD5
-- MySql
+- Postgres
 
 ## Rodando localmente
 
